@@ -1,0 +1,25 @@
+{
+  "name": "node-blueprint",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "MIT",
+  "author": "Cristi Ciobanu",
+  "bin": {
+    "node-blueprint": "index.js",
+    "nb": "index.js"
+  },
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0"
+  }
+}
