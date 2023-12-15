@@ -1,28 +1,29 @@
 import fs from "node:fs";
+import { execSync } from "node:child_process";
 import prompts from "prompts";
 import kleur from "kleur";
 
-const defaultTargetDir = "node-blueprint";
+const defaultTargetDirName = "node-blueprint";
 
 async function init() {
-  let result: prompts.Answers<"targetDir">;
+  let result: prompts.Answers<"targetDirName">;
 
   try {
     result = await prompts(
       [
         {
           type: "text",
-          name: "targetDir",
+          name: "targetDirName",
           message: "What is the name of your project?",
-          initial: defaultTargetDir,
-          format: formatTargetDir,
+          initial: defaultTargetDirName,
+          format: formatTargetDirName,
         },
         {
-          type: (targetDir: string) => {
-            if (!isEmptyDir(targetDir)) {
+          type: (targetDirName: string) => {
+            if (!isEmptyDir(targetDirName)) {
               throw new Error(
                 `${kleur.red("✖")} Directory ${kleur.bold(
-                  targetDir
+                  targetDirName
                 )} already exists and is not empty. Please empty the directory or choose a different name`
               );
             }
@@ -43,11 +44,28 @@ async function init() {
     return;
   }
 
-  console.log(result);
+  const { targetDirName } = result;
+
+  if (!fs.existsSync(targetDirName)) {
+    fs.mkdirSync(targetDirName, { recursive: true });
+  }
+
+  fs.cpSync("./templates/base", targetDirName, { recursive: true });
+
+  const packageContents = fs.readFileSync(`${targetDirName}/package.json`, {
+    encoding: "utf-8",
+  });
+  fs.writeFileSync(
+    `${targetDirName}/package.json`,
+    packageContents.replace("node-blueprint", targetDirName),
+    "utf-8"
+  );
+
+  execSync("npm i", { cwd: targetDirName });
 }
 
-function formatTargetDir(targetDir: string) {
-  return targetDir.trim().replace(/\/+$/g, "");
+function formatTargetDirName(targetDirName: string) {
+  return targetDirName.trim().replace(/\/+$/g, "");
 }
 
 function isEmptyDir(dirName: string) {
