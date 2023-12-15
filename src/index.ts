@@ -3,28 +3,34 @@ import { execSync } from "node:child_process";
 import prompts from "prompts";
 import kleur from "kleur";
 
-const defaultTargetDirName = "node-blueprint";
+const defaultPackageName = "node-blueprint";
 
 async function init() {
-  let result: prompts.Answers<"targetDirName">;
+  let answers: prompts.Answers<"packageName">;
 
   try {
-    result = await prompts(
+    answers = await prompts(
       [
         {
           type: "text",
-          name: "targetDirName",
-          message: "What is the name of your project?",
-          initial: defaultTargetDirName,
-          format: formatTargetDirName,
+          name: "packageName",
+          message: "What would you like to call your new package?",
+          initial: defaultPackageName,
+          validate: (value) => {
+            if (/^([a-z0-9\.\-\_])+$/.test(value)) {
+              return true;
+            }
+
+            return "The package name can only contain lowercase letters, digits, and the characters ., -, and _.";
+          },
         },
         {
-          type: (targetDirName: string) => {
-            if (!isEmptyDir(targetDirName)) {
+          type: (packageName: string) => {
+            if (!isEmptyDir(packageName)) {
               throw new Error(
                 `${kleur.red("✖")} Directory ${kleur.bold(
-                  targetDirName
-                )} already exists and is not empty. Please empty the directory or choose a different name`
+                  packageName
+                )} already exists and is not empty. Please empty the directory or choose a different name for your package`
               );
             }
 
@@ -44,28 +50,24 @@ async function init() {
     return;
   }
 
-  const { targetDirName } = result;
+  const { packageName } = answers;
 
-  if (!fs.existsSync(targetDirName)) {
-    fs.mkdirSync(targetDirName, { recursive: true });
+  if (!fs.existsSync(packageName)) {
+    fs.mkdirSync(packageName);
   }
 
-  fs.cpSync("./templates/base", targetDirName, { recursive: true });
+  fs.cpSync("./templates/base", packageName, { recursive: true });
 
-  const packageContents = fs.readFileSync(`${targetDirName}/package.json`, {
+  const packageContents = fs.readFileSync(`${packageName}/package.json`, {
     encoding: "utf-8",
   });
   fs.writeFileSync(
-    `${targetDirName}/package.json`,
-    packageContents.replace("node-blueprint", targetDirName),
+    `${packageName}/package.json`,
+    packageContents.replace("node-blueprint", packageName),
     "utf-8"
   );
 
-  execSync("npm i", { cwd: targetDirName });
-}
-
-function formatTargetDirName(targetDirName: string) {
-  return targetDirName.trim().replace(/\/+$/g, "");
+  execSync("npm i", { cwd: packageName });
 }
 
 function isEmptyDir(dirName: string) {
