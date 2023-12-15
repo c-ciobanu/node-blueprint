@@ -1,0 +1,14 @@
+{
+  "name": "node-blueprint",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

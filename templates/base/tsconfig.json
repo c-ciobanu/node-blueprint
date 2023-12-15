@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "esnext",
+
+    /* Modules */
+    "rootDir": "src",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    /* Emit */
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": false,
+
+    /* Type Checking */
+    "strict": true,
+    "noUnusedLocals": true,
+
+    /* Completeness */
+    "skipLibCheck": false
+  }
+}
