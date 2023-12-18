@@ -21,7 +21,7 @@ async function init() {
               return true;
             }
 
-            return "The package name can only contain lowercase letters, digits, and the characters ., -, and _.";
+            return "The package name can only contain lowercase letters, digits, and the characters ., -, and _";
           },
         },
         {
@@ -52,22 +52,25 @@ async function init() {
 
   const { packageName } = answers;
 
+  console.log(`\nScaffolding template in ${kleur.bold(packageName)}`);
+
   if (!fs.existsSync(packageName)) {
     fs.mkdirSync(packageName);
   }
 
   fs.cpSync("./templates/base", packageName, { recursive: true });
 
-  const packageContents = fs.readFileSync(`${packageName}/package.json`, {
-    encoding: "utf-8",
-  });
-  fs.writeFileSync(
-    `${packageName}/package.json`,
-    packageContents.replace("node-blueprint", packageName),
-    "utf-8"
+  editFile(`${packageName}/package.json`, (c) =>
+    c.replace("node-blueprint", packageName)
   );
 
-  execSync("npm i", { cwd: packageName });
+  console.log("\nInstalling dependencies with npm");
+
+  execSync("npm i", { cwd: packageName, stdio: "inherit" });
+
+  console.log("\nDone. Now you can run:\n");
+  console.log(kleur.dim(`    cd ${packageName}`));
+  console.log(kleur.dim("    npm run dev"));
 }
 
 function isEmptyDir(dirName: string) {
@@ -77,6 +80,11 @@ function isEmptyDir(dirName: string) {
 
   const files = fs.readdirSync(dirName);
   return files.length === 0;
+}
+
+function editFile(fileName: string, callback: (content: string) => string) {
+  const fileContent = fs.readFileSync(fileName, { encoding: "utf-8" });
+  fs.writeFileSync(fileName, callback(fileContent), { encoding: "utf-8" });
 }
 
 init().catch((e) => {
