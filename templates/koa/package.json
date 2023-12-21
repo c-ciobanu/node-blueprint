@@ -1,5 +1,5 @@
 {
-  "name": "node-blueprint-base",
+  "name": "node-blueprint",
   "private": true,
   "scripts": {
     "dev": "nodemon src/index.ts",
