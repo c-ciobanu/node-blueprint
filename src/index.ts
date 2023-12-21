@@ -6,7 +6,7 @@ import kleur from "kleur";
 const defaultPackageName = "node-blueprint";
 
 async function init() {
-  let answers: prompts.Answers<"packageName">;
+  let answers: prompts.Answers<"packageName" | "framework">;
 
   try {
     answers = await prompts(
@@ -34,9 +34,28 @@ async function init() {
               );
             }
 
-            return null;
+            return "select";
           },
-          name: "",
+          name: "framework",
+          message: "What framework do you want to use in your Node.js project?",
+          initial: 0,
+          choices: [
+            {
+              title: "None",
+              description: "Just Node.js",
+              value: null,
+            },
+            {
+              title: "Express",
+              description: "https://expressjs.com",
+              value: "express",
+            },
+            {
+              title: "koa",
+              description: "https://koajs.com",
+              value: "koa",
+            },
+          ],
         },
       ],
       {
@@ -50,7 +69,7 @@ async function init() {
     return;
   }
 
-  const { packageName } = answers;
+  const { packageName, framework } = answers;
 
   console.log(`\nScaffolding template in ${kleur.bold(packageName)}`);
 
@@ -59,6 +78,13 @@ async function init() {
   }
 
   fs.cpSync("./templates/base", packageName, { recursive: true });
+
+  if (framework) {
+    fs.cpSync(`./templates/${framework}`, packageName, {
+      recursive: true,
+      force: true,
+    });
+  }
 
   editFile(`${packageName}/package.json`, (c) =>
     c.replace("node-blueprint", packageName)
