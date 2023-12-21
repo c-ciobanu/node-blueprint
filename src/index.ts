@@ -14,7 +14,7 @@ async function init() {
         {
           type: "text",
           name: "packageName",
-          message: "What would you like to call your new package?",
+          message: "What would you like to call your new project?",
           initial: defaultPackageName,
           validate: (value) => {
             if (/^([a-z0-9\.\-\_])+$/.test(value)) {
@@ -94,7 +94,7 @@ async function init() {
 
   execSync("npm i", { cwd: packageName, stdio: "inherit" });
 
-  console.log("\nDone. Now you can run:\n");
+  console.log(`\n${kleur.green("✔")} Done. Now you can run:\n`);
   console.log(kleur.dim(`    cd ${packageName}`));
   console.log(kleur.dim("    npm run dev"));
 }
