@@ -1,6 +1,6 @@
 {
   "name": "node-blueprint",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bootstrap a Node.js project with TS",
   "type": "module",
   "license": "MIT",
