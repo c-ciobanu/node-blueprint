@@ -51,7 +51,7 @@ async function init() {
               value: "express",
             },
             {
-              title: "koa",
+              title: "Koa",
               description: "https://koajs.com",
               value: "koa",
             },
