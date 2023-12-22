@@ -55,6 +55,11 @@ async function init() {
               description: "https://koajs.com",
               value: "koa",
             },
+            {
+              title: "GraphQL Yoga",
+              description: "https://the-guild.dev/graphql/yoga-server",
+              value: "graphql-yoga",
+            },
           ],
         },
       ],
