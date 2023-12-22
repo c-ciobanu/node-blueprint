@@ -1,6 +1,7 @@
 {
   "name": "node-blueprint",
   "version": "0.0.1",
+  "description": "Bootstrap a Node.js project with TS",
   "type": "module",
   "license": "MIT",
   "author": "Cristi Ciobanu",
@@ -8,6 +9,11 @@
     "node-blueprint": "index.js",
     "nb": "index.js"
   },
+  "files": [
+    "index.js",
+    "templates",
+    "dist"
+  ],
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
@@ -17,6 +23,21 @@
     "node": ">=18",
     "pnpm": ">=8"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/c-ciobanu/node-blueprint"
+  },
+  "bugs": {
+    "url": "https://github.com/c-ciobanu/node-blueprint/issues"
+  },
+  "homepage": "https://github.com/c-ciobanu/node-blueprint#readme",
+  "keywords": [
+    "cli",
+    "node",
+    "typescript",
+    "express",
+    "koa"
+  ],
   "devDependencies": {
     "@types/node": "^20.10.4",
     "@types/prompts": "^2.4.9",
