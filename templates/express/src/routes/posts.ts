@@ -61,7 +61,7 @@ postsRouter.delete(`/:id`, (req, res) => {
     return res.status(404).send();
   }
 
-  const removedPost = posts.splice(postIndex, 1);
+  const removedPosts = posts.splice(postIndex, 1);
 
-  res.json(removedPost);
+  res.json(removedPosts[0]);
 });

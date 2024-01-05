@@ -63,7 +63,7 @@ postsRouter.delete(`/:id`, (ctx) => {
     return;
   }
 
-  const removedPost = posts.splice(postIndex, 1);
+  const removedPosts = posts.splice(postIndex, 1);
 
-  ctx.body = removedPost;
+  ctx.body = removedPosts[0];
 });
