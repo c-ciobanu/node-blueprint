@@ -60,6 +60,11 @@ async function init() {
               description: "https://the-guild.dev/graphql/yoga-server",
               value: "graphql-yoga",
             },
+            {
+              title: "Apollo GraphQL",
+              description: "https://www.apollographql.com/docs/apollo-server/",
+              value: "apollo-graphql",
+            },
           ],
         },
       ],

@@ -19,6 +19,7 @@ If that's what you are looking for then this tool is for you.
 - [Express](https://github.com/expressjs/express)
 - [Koa](https://github.com/koajs/koa)
 - [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga)
+- [Apollo GraphQL](https://github.com/apollographql/apollo-server)
 
 ## Local development
 
