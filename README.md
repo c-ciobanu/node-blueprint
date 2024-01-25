@@ -8,6 +8,10 @@
 
 If that's what you are looking for then this tool is for you.
 
+```bash
+npx node-ts-blueprint
+```
+
 ## Why would I use this?
 
 - Easy to set up and install
