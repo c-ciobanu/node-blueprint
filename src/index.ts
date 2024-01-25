@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import { execSync } from "node:child_process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import prompts from "prompts";
 import kleur from "kleur";
 
@@ -62,7 +64,7 @@ async function init() {
             },
             {
               title: "Apollo GraphQL",
-              description: "https://www.apollographql.com/docs/apollo-server/",
+              description: "https://www.apollographql.com/docs/apollo-server",
               value: "graphql-apollo",
             },
           ],
@@ -87,17 +89,23 @@ async function init() {
     fs.mkdirSync(packageName);
   }
 
-  fs.cpSync("./templates/base", packageName, { recursive: true });
+  const templatesDir = path.resolve(
+    fileURLToPath(import.meta.url),
+    "../..",
+    `templates`
+  );
+
+  fs.cpSync(`${templatesDir}/base`, packageName, { recursive: true });
 
   if (framework) {
     if (framework.includes("graphql")) {
-      fs.cpSync("./templates/graphql-base", packageName, {
+      fs.cpSync(`${templatesDir}/graphql-base`, packageName, {
         recursive: true,
         force: true,
       });
     }
 
-    fs.cpSync(`./templates/${framework}`, packageName, {
+    fs.cpSync(`${templatesDir}/${framework}`, packageName, {
       recursive: true,
       force: true,
     });
