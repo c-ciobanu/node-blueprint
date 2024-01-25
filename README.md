@@ -1,4 +1,10 @@
-# Node.js project bootstrapper
+# node-ts-blueprint <a href="https://npmjs.com/package/node-ts-blueprint"><img src="https://img.shields.io/npm/v/node-ts-blueprint" alt="npm package"></a>
+
+```bash
+npx node-ts-blueprint
+```
+
+## Node.js project bootstrapper
 
 > A command-line interface (CLI) tool to easily bootstrap Node.js projects with TypeScript and popular frameworks like Express.js and Koa.
 
@@ -7,10 +13,6 @@
 - Do you want to quickly prototype something using Node.js?
 
 If that's what you are looking for then this tool is for you.
-
-```bash
-npx node-ts-blueprint
-```
 
 ## Why would I use this?
 
