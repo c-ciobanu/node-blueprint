@@ -63,7 +63,7 @@ async function init() {
             {
               title: "Apollo GraphQL",
               description: "https://www.apollographql.com/docs/apollo-server/",
-              value: "apollo-graphql",
+              value: "graphql-apollo",
             },
           ],
         },
@@ -90,6 +90,13 @@ async function init() {
   fs.cpSync("./templates/base", packageName, { recursive: true });
 
   if (framework) {
+    if (framework.includes("graphql")) {
+      fs.cpSync("./templates/graphql-base", packageName, {
+        recursive: true,
+        force: true,
+      });
+    }
+
     fs.cpSync(`./templates/${framework}`, packageName, {
       recursive: true,
       force: true,
