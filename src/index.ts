@@ -137,6 +137,13 @@ async function init() {
       });
     }
 
+    if (framework.includes("graphql")) {
+      fs.cpSync(`${templatesDir}/${orm}-graphql-base`, packageName, {
+        recursive: true,
+        force: true,
+      });
+    }
+
     fs.cpSync(`${templatesDir}/${orm}-${framework}`, packageName, {
       recursive: true,
       force: true,
