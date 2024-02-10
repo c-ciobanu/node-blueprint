@@ -8,7 +8,7 @@ import kleur from "kleur";
 const defaultPackageName = "node-blueprint";
 
 async function init() {
-  let answers: prompts.Answers<"packageName" | "framework">;
+  let answers: prompts.Answers<"packageName" | "framework" | "orm">;
 
   try {
     answers = await prompts(
@@ -44,7 +44,6 @@ async function init() {
           choices: [
             {
               title: "None",
-              description: "Just Node.js",
               value: null,
             },
             {
@@ -64,8 +63,27 @@ async function init() {
             },
             {
               title: "Apollo GraphQL",
-              description: "https://www.apollographql.com/docs/apollo-server",
+              description: "https://apollographql.com/docs/apollo-server",
               value: "graphql-apollo",
+            },
+          ],
+        },
+        {
+          type: (framework: string | null) => {
+            return framework ? "select" : null;
+          },
+          name: "orm",
+          message: "What ORM do you want to use in your Node.js project?",
+          initial: 0,
+          choices: [
+            {
+              title: "None",
+              value: null,
+            },
+            {
+              title: "Prisma",
+              description: "https://prisma.io",
+              value: "prisma",
             },
           ],
         },
@@ -81,7 +99,7 @@ async function init() {
     return;
   }
 
-  const { packageName, framework } = answers;
+  const { packageName, framework, orm } = answers;
 
   console.log(`\nScaffolding template in ${kleur.bold(packageName)}`);
 
@@ -111,6 +129,22 @@ async function init() {
     });
   }
 
+  if (orm) {
+    if (orm === "prisma") {
+      fs.cpSync(`${templatesDir}/prisma-base`, packageName, {
+        recursive: true,
+        force: true,
+      });
+    }
+
+    fs.cpSync(`${templatesDir}/${orm}-${framework}`, packageName, {
+      recursive: true,
+      force: true,
+    });
+
+    fs.renameSync(`${packageName}/.env.example`, `${packageName}/.env`);
+  }
+
   editFile(`${packageName}/package.json`, (c) =>
     c.replace("node-blueprint", packageName)
   );
@@ -118,6 +152,13 @@ async function init() {
   console.log("\nInstalling dependencies with npm");
 
   execSync("npm i", { cwd: packageName, stdio: "inherit" });
+
+  if (orm && orm === "prisma") {
+    execSync("npm run migrate:dev -- --name init", {
+      cwd: packageName,
+      stdio: "inherit",
+    });
+  }
 
   console.log(`\n${kleur.green("✔")} Done. Now you can run:\n`);
   console.log(kleur.dim(`    cd ${packageName}`));
