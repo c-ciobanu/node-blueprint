@@ -135,13 +135,13 @@ async function init() {
         recursive: true,
         force: true,
       });
-    }
 
-    if (framework.includes("graphql")) {
-      fs.cpSync(`${templatesDir}/${orm}-graphql-base`, packageName, {
-        recursive: true,
-        force: true,
-      });
+      if (framework.includes("graphql")) {
+        fs.cpSync(`${templatesDir}/prisma-graphql-base`, packageName, {
+          recursive: true,
+          force: true,
+        });
+      }
     }
 
     fs.cpSync(`${templatesDir}/${orm}-${framework}`, packageName, {

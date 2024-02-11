@@ -57,9 +57,9 @@ export const resolvers: Resolvers = {
         return null;
       }
 
-      const removedPost = posts.splice(postIndex, 1);
+      const removedPosts = posts.splice(postIndex, 1);
 
-      return removedPost[0];
+      return removedPosts[0];
     },
   },
 };
