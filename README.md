@@ -27,6 +27,14 @@ If that's what you are looking for then this tool is for you.
 - [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga)
 - [Apollo GraphQL](https://github.com/apollographql/apollo-server)
 
+## Supported ORMs
+
+- [Prisma](https://github.com/prisma/prisma)
+
+## Supported DBs
+
+- [SQLite](https://www.sqlite.org/index.html)
+
 ## Local development
 
 ```bash

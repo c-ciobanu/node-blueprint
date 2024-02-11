@@ -1,6 +1,6 @@
 {
   "name": "node-ts-blueprint",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Bootstrap a Node.js project with TS and your favourite framework",
   "type": "module",
   "license": "MIT",
@@ -40,7 +40,11 @@
     "koa",
     "graphql",
     "graphql-yoga",
-    "apollo"
+    "apollo",
+    "orm",
+    "prisma",
+    "db",
+    "sqlite"
   ],
   "dependencies": {
     "kleur": "^4.1.5",
