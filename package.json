@@ -1,7 +1,7 @@
 {
   "name": "node-ts-blueprint",
   "version": "0.3.0",
-  "description": "Bootstrap a Node.js project with TS and your favourite framework",
+  "description": "Easily bootstrap a Node.js project with all the bells and whistles",
   "type": "module",
   "license": "MIT",
   "author": "Cristi Ciobanu",
